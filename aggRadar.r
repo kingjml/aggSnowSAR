@@ -17,18 +17,10 @@ elangPath = paste0(workingPath, "/Radar_data/GeoTIFF_elang/")
 outputPath = paste0(workingPath, "/Radar_data/Output/")
 dir.create(outputPath, showWarnings = FALSE)
 
-#require(sp)
+#install the required packages if they don't exist
+install.packages(c("rgdal", "raster"), quiet=TRUE)
 require(rgdal)
-#require(rgeos)
 require(raster)
-#require(ggplot2)
-#require(parallel)
-#require(gstat) 
-
-Mode <- function(x,na.rm=FALSE) {
-  ux <- unique(x)
-  ux[which.max(tabulate(match(x, ux)))]
-}
 
 radarNativeRes = 2 #in m, this should not change
 scaleData.radar = c(10/radarNativeRes, 50/radarNativeRes, 100/radarNativeRes)
