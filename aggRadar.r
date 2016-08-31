@@ -18,14 +18,14 @@ outputPath = paste0(workingPath, "/Radar_data/Output/")
 dir.create(outputPath, showWarnings = FALSE)
 
 #install the required packages if they don't exist
-install.packages(c("rgdal", "raster"), quiet=TRUE)
+install.packages(c("rgdal", "raster","parallel"), quiet=TRUE)
 require(rgdal)
 require(raster)
+require(parallel)
 
 radarNativeRes = 2 #in m, this should not change
 scaleData.radar = c(10/radarNativeRes, 50/radarNativeRes, 100/radarNativeRes)
 
-cat("Processing TVC", mission, "...\n")
 GCS = "+proj=longlat +ellps=WGS84" #CRS geographic coordniate system WGS84
 PCS = "+proj=utm +zone=8 +north +units=m +ellps=WGS84" #CRS projected coordniate system UTM8N/WGS84
 
