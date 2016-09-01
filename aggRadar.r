@@ -18,7 +18,7 @@ outputPath = paste0(workingPath, "/Radar_data/Output/")
 dir.create(outputPath, showWarnings = FALSE)
 
 #install the required packages if they don't exist
-install.packages(c("rgdal", "raster","parallel"), quiet=TRUE)
+#install.packages(c("rgdal", "raster","parallel"), quiet=TRUE)
 require(rgdal)
 require(raster)
 require(parallel)
@@ -106,6 +106,10 @@ for (i in 1:swathNum) {
 	sigFileNames = list.files(sigma0Path, pattern=paste0("*", fileDates[i],"*"), full.names=FALSE)
 	elangFileNames = list.files(elangPath, pattern=paste0("*", fileDates[i],"*"), full.names=FALSE)
 	elocalFileNames = list.files(elangPath, pattern=paste0("*", fileDates[i],"*"), full.names=FALSE)
+	
+	#Output filtered native resolution data
+	sigNativeOutFile = paste0(outputPath,substring(sigFileNames ,1,32),radarNativeRes,"m.tif")
+	lapply(1:length(radarData.s0), function(x) {writeRaster(radarData.s0[[x]], filename=sigNativeOutFile[x], format="GTiff", overwrite=TRUE)})
 
 	if(scaleData.radar[1]>0){
 		for (s in 1:length(scaleData.radar)){
